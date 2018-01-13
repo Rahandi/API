@@ -4,18 +4,17 @@ from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
 app = Flask(__name__)
-# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-# marker = instaAPI.login()
-# if marker == False:
-#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-#     marker = instaAPI.login()
-marker = True
+instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+marker = instaAPI.login()
+if marker == False:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
 key = ['randi123', 'betakey']
 
-@app.route('/coba/<entah>', methods=['GET'])
-def root(entah):
+@app.route('/', methods=['GET'])
+def root():
     if marker == True:
-        return str('it works !!!' + entah)
+        return str('it works !!!')
     else:
         return str('instagram is not logged in :(')
 
@@ -93,7 +92,7 @@ def instastory(username):
         result['error'] = str(e)
         return result
 
-@app.route('/instapost/<username>/<post_ke>')
+@app.route('/instapost/<username>/<post_ke>', methods=['GET'])
 def instapost(username, post_ke):
     result = {}
     try:
