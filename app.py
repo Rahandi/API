@@ -43,6 +43,13 @@ def root():
     else:
         return str('instagram is not logged in :(')
 
+@app.route('/usage', methods=['GET'])
+def usage():
+    file = open('usage', 'r')
+    data = file.read()
+    file.close()
+    return str(data)
+
 @app.route('/instainfo/<username>', methods=['GET'])
 def instainfo(username):
     result = {}
