@@ -4,11 +4,11 @@ from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
 app = Flask(__name__)
-# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-# marker = instaAPI.login()
-# if marker == False:
-#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-#     marker = instaAPI.login()
+instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+marker = instaAPI.login()
+if marker == False:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
 marker = True
 key = ['randi123', 'betakey']
 
