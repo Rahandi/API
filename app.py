@@ -4,12 +4,37 @@ from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
 app = Flask(__name__)
-instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-marker = instaAPI.login()
-if marker == False:
-    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-    marker = instaAPI.login()
+# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+# marker = instaAPI.login()
+# if marker == False:
+#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+#     marker = instaAPI.login()
+marker = True
 key = ['randi123', 'betakey']
+
+def humansize(nbytes):
+    try:
+        i = 0
+        suffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+        while nbytes >= 1024 and i < len(suffixes)-1:
+            nbytes /= 1024.
+            i += 1
+        f = ('%.2f' % nbytes).rstrip('0').rstrip('.')
+        return '%s %s' % (f, suffixes[i])
+    except Exception as e:
+        return str(e)
+
+def shorten(url):
+    try:
+        api_key = 'AIzaSyB2JuzKCAquSRSeO9eiY6iNE9RMoZXbrjo'
+        req_url = 'https://www.googleapis.com/urlshortener/v1/url?key=' + api_key
+        payload = {'longUrl': url}
+        headers = {'content-type': 'application/json'}
+        r = requests.post(req_url, data=json.dumps(payload), headers=headers)
+        resp = json.loads(r.text)
+        return resp['id']
+    except Exception as e:
+        return str(e)
 
 @app.route('/', methods=['GET'])
 def root():
@@ -152,6 +177,127 @@ def instapost(username, post_ke):
                     instaAPI.follow(userID)
             else:
                 result['find'] = False
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/imageapi', methods=['GET'])
+def imageapi():
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('q'):
+            if query == None or query == '':
+                result['error'] = 'query must be specified'
+            else:
+                query = query.replace(' ', '+')
+                link = 'https://www.google.co.id/search?q=' + query +'&dcr=0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwje9__4z6nXAhVMKY8KHUFCCbwQ_AUICigB&biw=1366&bih=672'
+                headers = {}
+                headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17'
+                data = requests.get(link, headers=headers)
+                data = data.text.encode('utf-8').decode('ascii', 'ignore')
+                filtered = SoupStrainer('div', {'class':'rg_meta notranslate'})
+                soup = BeautifulSoup(data, 'lxml', parse_only = filtered)
+                result = {}
+                result['result'] = [] 
+                for a in soup.find_all('div', {'class':'rg_meta notranslate'}):
+                    try:
+                        json1 = json.loads(str(a.text))
+                        result['result'].append(json1['ou'])
+                    except Exception as e:
+                        pass
+                result['error'] = None
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/lyricapi', methods=['GET'])
+def lyric():
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('q'):
+            if query == None or query == '':
+                result['error'] = 'query must be specified'
+            else:
+                link = 'http://api.genius.com/search?q=%s&page=1' % (requests.utils.requote_uri(query))
+                header = {
+                    'Authorization':'Bearer Rx2zXIU-H5ntF5p7XnkaJSCr8HIG4Q7ObeXcTRoL2oatuE_e4eEFK1HVgdyjtQh7',
+                    'User-Agent':'CompuServe Classic/1.22',
+                    'Accept':'application/json',
+                    'Host':'api.genius.com'
+                }
+                data = json.loads(requests.get(link, headers=header).text)
+                if len(data['response']['hits']) == 0:
+                    result['find'] = False
+                    return result
+                result['find'] = True
+                result['title'] = data['response']['hits'][0]['result']['full_title']
+                link = data['response']['hits'][0]['result']['url']
+                data = requests.get(link).text
+                lyricsf = []
+                soup = BeautifulSoup(data, 'lxml')
+                for a in soup.find_all('div', {'class':'lyrics'}):
+                    for b in a.find_all('p'):
+                        lyricsf.append(b.text)
+                result['lyric'] = '\n'.join(lyricsf)
+                result['error'] = None
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/youtubeapi', methods=['GET'])
+def youtubeapi():
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('q'):
+            if query == None or query == '':
+                result['error'] = 'query must be specified'
+            else:
+                data = pafy.new(query)
+                result['result'] = {}
+                result['result']['title'] = data.title
+                result['result']['thumbnail'] = self.shorten('https://img.youtube.com/vi/%s/maxresdefault.jpg' % data.videoid)
+                result['result']['author'] = data.author
+                result['result']['rating'] = data.rating
+                result['result']['duration'] = data.duration
+                result['result']['viewcount'] = data.viewcount
+                result['result']['likes'] = data.likes
+                result['result']['dislikes'] = data.dislikes
+                result['result']['description'] = data.description
+                result['result']['videolist'] = []
+                result['result']['audiolist'] = []
+                videolist = data.streams
+                audiolist = data.audiostreams
+                for a in videolist:
+                    ape = {}
+                    realreso = a.resolution.split('x')
+                    ape['resolution'] = '%sp' % (realreso[1])
+                    ape['size'] = self.humansize(a.get_filesize())
+                    ape['extension'] = a.extension
+                    ape['url'] = self.shorten(a.url)
+                    result['result']['videolist'].append(ape)
+                for a in audiolist:
+                    ape = {}
+                    ape['resolution'] = a.bitrate
+                    ape['size'] = self.humansize(a.get_filesize())
+                    ape['extension'] = a.extension
+                    ape['url'] = self.shorten(a.url)
+                    result['result']['audiolist'].append(ape)
+                result['error'] = None
         return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
