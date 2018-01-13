@@ -1,5 +1,5 @@
 import json, requests, pafy, sys, os
-from flask import Flask, request, abort, redirect
+from flask import Flask, request, abort, redirect, jsonify
 from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
@@ -42,10 +42,10 @@ def instainfo(username):
                 result['result']['url'] = query['hd_profile_pic_url_info']['url']
             else:
                 result['find'] = False
-        return result
+        return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
-        return result
+        return jsonify(result)
 
 @app.route('/instastory/<username>', methods=['GET'])
 def instastory(username):
@@ -87,10 +87,10 @@ def instastory(username):
                         result['url'].append(items)
             else:
                 result['find'] = False
-        return result
+        return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
-        return result
+        return jsonify(result)
 
 @app.route('/instapost/<username>/<post_ke>', methods=['GET'])
 def instapost(username, post_ke):
@@ -152,10 +152,10 @@ def instapost(username, post_ke):
                     instaAPI.follow(userID)
             else:
                 result['find'] = False
-        return result
+        return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
-        return result
+        return jsonify(result)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
