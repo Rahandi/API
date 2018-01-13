@@ -4,14 +4,14 @@ from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
 app = Flask(__name__)
-instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-marker = instaAPI.login()
-if marker == False:
-    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-    marker = instaAPI.login()
+# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+# marker = instaAPI.login()
+# if marker == False:
+#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+#     marker = instaAPI.login()
 key = ['randi123', 'betakey']
 
-@app.route('/', methods=['GET'])
+@app.route('/coba', methods=['GET'])
 def root():
     if marker == True:
         return str('it works !!!')
