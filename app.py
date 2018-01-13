@@ -1,5 +1,5 @@
 import json, requests, pafy, sys, os
-from flask import request, abort, redirect
+from flask import Flask, request, abort, redirect
 from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 
@@ -156,3 +156,7 @@ def instapost(username, post_ke):
     except Exception as e:
         result['error'] = str(e)
         return result
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, threaded=True)
