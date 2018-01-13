@@ -190,7 +190,7 @@ def imageapi():
         if keys not in key:
             result['error'] = 'need auth key'
         else:
-            query = request.args.get('q'):
+            query = request.args.get('q')
             if query == None or query == '':
                 result['error'] = 'query must be specified'
             else:
@@ -224,7 +224,7 @@ def lyric():
         if keys not in key:
             result['error'] = 'need auth key'
         else:
-            query = request.args.get('q'):
+            query = request.args.get('q')
             if query == None or query == '':
                 result['error'] = 'query must be specified'
             else:
@@ -263,7 +263,7 @@ def youtubeapi():
         if keys not in key:
             result['error'] = 'need auth key'
         else:
-            query = request.args.get('q'):
+            query = request.args.get('q')
             if query == None or query == '':
                 result['error'] = 'query must be specified'
             else:
