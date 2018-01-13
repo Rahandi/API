@@ -9,6 +9,7 @@ app = Flask(__name__)
 # if marker == False:
 #     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
 #     marker = instaAPI.login()
+marker = True
 key = ['randi123', 'betakey']
 
 @app.route('/coba', methods=['GET'])
