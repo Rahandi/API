@@ -270,7 +270,7 @@ def youtubeapi():
                 data = pafy.new(query)
                 result['result'] = {}
                 result['result']['title'] = data.title
-                result['result']['thumbnail'] = self.shorten('https://img.youtube.com/vi/%s/maxresdefault.jpg' % data.videoid)
+                result['result']['thumbnail'] = shorten('https://img.youtube.com/vi/%s/maxresdefault.jpg' % data.videoid)
                 result['result']['author'] = data.author
                 result['result']['rating'] = data.rating
                 result['result']['duration'] = data.duration
@@ -286,16 +286,16 @@ def youtubeapi():
                     ape = {}
                     realreso = a.resolution.split('x')
                     ape['resolution'] = '%sp' % (realreso[1])
-                    ape['size'] = self.humansize(a.get_filesize())
+                    ape['size'] = humansize(a.get_filesize())
                     ape['extension'] = a.extension
-                    ape['url'] = self.shorten(a.url)
+                    ape['url'] = shorten(a.url)
                     result['result']['videolist'].append(ape)
                 for a in audiolist:
                     ape = {}
                     ape['resolution'] = a.bitrate
-                    ape['size'] = self.humansize(a.get_filesize())
+                    ape['size'] = humansize(a.get_filesize())
                     ape['extension'] = a.extension
-                    ape['url'] = self.shorten(a.url)
+                    ape['url'] = shorten(a.url)
                     result['result']['audiolist'].append(ape)
                 result['error'] = None
         return jsonify(result)
