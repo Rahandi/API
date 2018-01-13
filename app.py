@@ -12,10 +12,10 @@ app = Flask(__name__)
 marker = True
 key = ['randi123', 'betakey']
 
-@app.route('/coba', methods=['GET'])
-def root():
+@app.route('/coba/<entah>', methods=['GET'])
+def root(entah):
     if marker == True:
-        return str('it works !!!')
+        return str('it works !!!' + entah)
     else:
         return str('instagram is not logged in :(')
 
