@@ -1,19 +1,19 @@
-[API usage]
-
-base url = rahandiapi.herokuapp.com
-
-endpoint:
-/instapost/[username]/[post]?key=betakey
-/instainfo/[username]?key=betakey
-/instastory/[username]?key=betakey
-/imageapi?key=betakey&q=[query]
-/youtubeapi?key=betakey&q=[youtube link]
-/lyricapi?key=betakey&q=[query]
-
-example:
-rahandiapi.herokuapp.com/instapost/rahandipasha/1?key=betakey
-rahandiapi.herokuapp.com/instainfo/anime.niisan?key=betakey
-rahandiapi.herokuapp.com/instastory/rahandipasha?key=betakey
-rahandiapi.herokuapp.com/imageapi?key=betakey&q=dark
-rahandiapi.herokuapp.com/youtubeapi?key=betakey&q=https://www.youtube.com/watch?v=JPRncyC68wY
-rahandiapi.herokuapp.com/lyricapi?key=betakey&q=numb%20linkin%20park
+[API usage]<br>
+<br>
+base url = rahandiapi.herokuapp.com<br>
+<br>
+endpoint:<br>
+/instapost/[username]/[post]?key=betakey<br>
+/instainfo/[username]?key=betakey<br>
+/instastory/[username]?key=betakey<br>
+/imageapi?key=betakey&q=[query]<br>
+/youtubeapi?key=betakey&q=[youtube link]<br>
+/lyricapi?key=betakey&q=[query]<br>
+<br>
+example:<br>
+rahandiapi.herokuapp.com/instapost/rahandipasha/1?key=betakey<br>
+rahandiapi.herokuapp.com/instainfo/anime.niisan?key=betakey<br>
+rahandiapi.herokuapp.com/instastory/rahandipasha?key=betakey<br>
+rahandiapi.herokuapp.com/imageapi?key=betakey&q=dark<br>
+rahandiapi.herokuapp.com/youtubeapi?key=betakey&q=https://www.youtube.com/watch?v=JPRncyC68wY<br>
+rahandiapi.herokuapp.com/lyricapi?key=betakey&q=numb%20linkin%20park<br>
