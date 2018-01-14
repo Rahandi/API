@@ -2,13 +2,24 @@ import json, requests, pafy, sys, os
 from flask import Flask, request, abort, redirect, jsonify
 from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
+from data.clarifaiapi import CLarifaiAPI
 
 app = Flask(__name__)
-instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-marker = instaAPI.login()
-if marker == False:
-    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-    marker = instaAPI.login()
+
+# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+# marker = instaAPI.login()
+# if marker == False:
+#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+#     marker = instaAPI.login()
+
+imgurlogindata = [
+        '19bd6586ad07952',
+        '7cff9b3396b1b461b64d923e45d37ceff1e801fe',
+        '663137659dbab6d44a9a1a2cb3f8af6c63b68762',
+        '660b76c28420af23ce2e5e23b7a317c7a96a8907'
+    ]
+clarifai = CLarifaiAPI('c469606b715140bcbca2660c886d5220', imgurlogindata)
+
 marker = True
 key = ['randi123', 'betakey']
 
@@ -305,6 +316,37 @@ def youtubeapi():
                     ape['url'] = shorten(a.url)
                     result['result']['audiolist'].append(ape)
                 result['error'] = None
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/visionAI/<model>', methods=['GET'])
+def visionAI(model):
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('link')
+            if query == None or query == '':
+                result['error'] = 'link must be specified'
+            else:
+                if model == 'general':
+                    result = clarifai.modelGeneral(query)
+                    result['error'] = None
+                elif model == 'food':
+                    result = clarifai.modelFood(query)
+                    result['error'] = None
+                elif model == 'demographic':
+                    result = clarifai.modelDemographic(query)
+                    result['error'] = None
+                elif model == 'celebrity':
+                    result = clarifai.modelCelebrity(query)
+                    result['error'] = None
+                else:
+                    result['error'] = 'model not exist'
         return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
