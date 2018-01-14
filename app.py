@@ -6,11 +6,11 @@ from data.clarifaiapi import ClarifaiAPI
 
 app = Flask(__name__)
 
-# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-# marker = instaAPI.login()
-# if marker == False:
-#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-#     marker = instaAPI.login()
+instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+marker = instaAPI.login()
+if marker == False:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
 
 imgurlogindata = [
         '19bd6586ad07952',
@@ -20,7 +20,6 @@ imgurlogindata = [
     ]
 clarifai = ClarifaiAPI('c469606b715140bcbca2660c886d5220', imgurlogindata)
 
-marker = True
 key = ['randi123', 'betakey']
 
 def humansize(nbytes):
