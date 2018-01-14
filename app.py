@@ -2,7 +2,7 @@ import json, requests, pafy, sys, os
 from flask import Flask, request, abort, redirect, jsonify
 from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
-from data.clarifaiapi import CLarifaiAPI
+from data.clarifaiapi import ClarifaiAPI
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ imgurlogindata = [
         '663137659dbab6d44a9a1a2cb3f8af6c63b68762',
         '660b76c28420af23ce2e5e23b7a317c7a96a8907'
     ]
-clarifai = CLarifaiAPI('c469606b715140bcbca2660c886d5220', imgurlogindata)
+clarifai = ClarifaiAPI('c469606b715140bcbca2660c886d5220', imgurlogindata)
 
 marker = True
 key = ['randi123', 'betakey']
