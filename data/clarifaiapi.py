@@ -5,7 +5,7 @@ from imgurpython import ImgurClient
 import os, string, requests, shutil
 
 class ClarifaiAPI():
-    def __init__(clarifaikey, imgurkey):
+    def __init__(self, clarifaikey, imgurkey):
         try:
             self.clarifai = ClarifaiApp(api_key = clarifaikey)
             self.imgur = ImgurClient(imgurkey[0], imgurkey[1], imgurkey[2], imgurkey[3])
