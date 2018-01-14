@@ -30,7 +30,7 @@ class ClarifaiAPI():
 
     def uploadImgur(self, path):
         try:
-            data = imgur.upload_from_path(path, config=None, anon=False)
+            data = self.imgur.upload_from_path(path, config=None, anon=False)
             os.remove(path)
             return data['link']
         except Exception as e:
@@ -38,7 +38,7 @@ class ClarifaiAPI():
 
     def getDataModel(self, model, path):
         try:
-            worker = clarifai.models.get(model)
+            worker = self.clarifai.models.get(model)
             content = ClImage(file_obj=open(path, 'rb'))
             data = worker.predict([img])
             return data
