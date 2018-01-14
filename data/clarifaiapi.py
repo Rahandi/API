@@ -40,7 +40,7 @@ class ClarifaiAPI():
         try:
             worker = self.clarifai.models.get(model)
             content = ClImage(file_obj=open(path, 'rb'))
-            data = worker.predict([img])
+            data = worker.predict([content])
             return data
         except Exception as e:
             raise e
