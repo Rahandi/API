@@ -1,5 +1,5 @@
-from Clarifai.rest import ClarifaiApp
-from Clarifai.rest import Image as ClImage
+from clarifai.rest import ClarifaiApp
+from clarifai.rest import Image as ClImage
 from PIL import Image, ImageDraw, ImageFont
 from imgurpython import ImgurClient
 import os, string, requests, shutil
