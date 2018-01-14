@@ -2,6 +2,7 @@ from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image as ClImage
 from PIL import Image, ImageDraw, ImageFont
 from imgurpython import ImgurClient
+from random import *
 import os, string, requests, shutil
 
 class ClarifaiAPI():
