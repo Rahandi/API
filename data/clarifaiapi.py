@@ -14,7 +14,7 @@ class ClarifaiAPI():
             raise e
 
     def getContent(self, link):
-        try
+        try:
             allchar = string.ascii_letters + string.digits
             path = "".join(choice(allchar) for x in range(10)) + '.jpg'
             data = requests.get(link, stream=True)
