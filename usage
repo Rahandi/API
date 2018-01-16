@@ -8,6 +8,7 @@ endpoint:<br>
 /instastory/[username]?key=betakey<br>
 /imageapi?key=betakey&q=[query]<br>
 /youtubeapi?key=betakey&q=[youtube link]<br>
+/youtubeapi/search?key=betakey&q=[query]<br>
 /lyricapi?key=betakey&q=[query]<br>
 /visionAI/general?key=betakey&link=[direct link to image]<br>
 /visionAI/food?key=betakey&link=[direct link to image]<br>
@@ -20,6 +21,7 @@ rahandiapi.herokuapp.com/instainfo/anime.niisan?key=betakey<br>
 rahandiapi.herokuapp.com/instastory/rahandipasha?key=betakey<br>
 rahandiapi.herokuapp.com/imageapi?key=betakey&q=dark<br>
 rahandiapi.herokuapp.com/youtubeapi?key=betakey&q=https://www.youtube.com/watch?v=JPRncyC68wY<br>
+<a href="rahandiapi.herokuapp.com/youtubeapi/search?key=betakey&q=indonesia">youtube search</a><br>
 rahandiapi.herokuapp.com/lyricapi?key=betakey&q=numb%20linkin%20park<br>
 rahandiapi.herokuapp.com/visionAI/general?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg<br>
 rahandiapi.herokuapp.com/visionAI/food?key=betakey&link=http://knowledgeoverflow.com/wp-content/uploads/2013/03/food_photography_burger_by_masterdev777-d3h1ryk.jpg<br>
