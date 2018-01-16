@@ -290,14 +290,12 @@ def youtubesearch():
                 prefered = SoupStrainer('a', {'rel':'spf-prefetch'})
                 soup = BeautifulSoup(page, 'lxml', parse_only=prefered)
                 hitung = 0
-                url = []
                 result['result'] = []
                 for a in soup.find_all('a', {'rel':'spf-prefetch'}):
                     if '/watch?' in a['href']:
                         hitung += 1
-                        url.append('https://youtube.com' + str(a['href']) + '&t')
                         result['result'].append(youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result'])
-                        if hitung >= 5:
+                        if hitung >= 1:
                             break
                 result['error'] = None
         return jsonify(result)
