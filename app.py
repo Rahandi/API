@@ -6,11 +6,11 @@ from data.clarifaiapi import ClarifaiAPI
 
 app = Flask(__name__)
 
-# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-# marker = instaAPI.login()
-# if marker == False:
-#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-#     marker = instaAPI.login()
+instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+marker = instaAPI.login()
+if marker == False:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
 
 imgurlogindata = [
         '19bd6586ad07952',
@@ -290,11 +290,10 @@ def youtubesearch():
                 prefered = SoupStrainer('a', {'rel':'spf-prefetch'})
                 soup = BeautifulSoup(page, 'lxml', parse_only=prefered)
                 hitung = 0
-                result['result'] = []
                 for a in soup.find_all('a', {'rel':'spf-prefetch'}):
                     if '/watch?' in a['href']:
                         hitung += 1
-                        result['result'].append(youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result'])
+                        result['result'] = youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result']
                         if hitung >= 1:
                             break
                 result['error'] = None
