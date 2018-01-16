@@ -272,8 +272,42 @@ def lyric():
         result['error'] = str(e)
         return jsonify(result)
 
+@app.route('/youtubeapi/search', methods=['GET'])
+def youtubesearch():
+    result = {}
+    try:
+        try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('q')
+            if query == None or query == '':
+                result['error'] = 'query must be specified'
+            else:
+                query = query.replace(' ', '+')
+                link = 'https://www.youtube.com/results?search_query=' + query
+                page = requests.get(link).text
+                prefered = SoupStrainer('a', {'rel':'spf-prefetch'})
+                soup = BeautifulSoup(page, 'lxml', parse_only=prefered)
+                hitung = 0
+                url = []
+                result['result'] = []
+                for a in soup.find_all('a', {'rel':'spf-prefetch'}):
+                    if '/watch?' in a['href']:
+                        hitung += 1
+                        url.append('https://youtube.com' + str(a['href']) + '&t')
+                        result['result'].append(youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result'])
+                        if hitung >= 5:
+                            break
+                result['error'] = None
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
 @app.route('/youtubeapi', methods=['GET'])
-def youtubeapi():
+def youtubeapi(url=None):
     result = {}
     try:
         keys = request.args.get('key')
@@ -281,6 +315,8 @@ def youtubeapi():
             result['error'] = 'need auth key'
         else:
             query = request.args.get('q')
+            if url is not None:
+                query = url
             if query == None or query == '':
                 result['error'] = 'query must be specified'
             else:
