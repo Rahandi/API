@@ -296,7 +296,7 @@ def youtubesearch():
                     if '/watch?' in a['href']:
                         hitung += 1
                         url.append('https://youtube.com' + str(a['href']) + '&t')
-                        result['result'].append(app.youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result'])
+                        result['result'].append(youtubeapi(url='https://youtube.com' + str(a['href']) + '&t')['result'])
                         if hitung >= 5:
                             break
                 result['error'] = None
