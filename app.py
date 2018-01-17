@@ -255,7 +255,8 @@ def lyric():
                 data = json.loads(requests.get(link, headers=header).text)
                 if len(data['response']['hits']) == 0:
                     result['find'] = False
-                    return result
+                    result['error'] = 'not found !!!'
+                    return jsonify(result)
                 result['find'] = True
                 result['title'] = data['response']['hits'][0]['result']['full_title']
                 link = data['response']['hits'][0]['result']['url']
