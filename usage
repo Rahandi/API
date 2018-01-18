@@ -24,6 +24,6 @@ example:<br>
 <a href="http://rahandiapi.herokuapp.com/youtubeapi/search?key=betakey&q=indonesia">youtubeapi search</a><br>
 <a href="http://rahandiapi.herokuapp.com/lyricapi?key=betakey&q=numb%20linkin%20park">lyricapi</a><br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/general?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg">visionAI general</a><br>
-<a href="http://rahandiapi.herokuapp.com/visionAI/food?key=betakey&link=http://knowledgeoverflow.com/wp-content/uploads/2013/03/food_photography_burger_by_masterdev777-d3h1ryk.jpg">visionAI food</a><br>
+<a href="http://rahandiapi.herokuapp.com/visionAI/food?key=betakey&link=https://i.ytimg.com/vi/mEBFswpYms4/maxresdefault.jpg">visionAI food</a><br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/demographic?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg">visionAI demographic</a><br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/celebrity?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg">visionAI celebrity</a><br>
