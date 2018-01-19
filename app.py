@@ -7,11 +7,11 @@ from data.openweathermap import owm
 
 app = Flask(__name__)
 
-# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-# marker = instaAPI.login()
-# if marker == False:
-#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-#     marker = instaAPI.login()
+instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+marker = instaAPI.login()
+if marker == False:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
 
 weatherAPI = owm('6ad7dc6072c70ea84dd42fa1273091e3')
 

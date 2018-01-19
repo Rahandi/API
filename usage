@@ -14,6 +14,8 @@ endpoint:<br>
 /visionAI/food?key=betakey&link=[direct link to image]<br>
 /visionAI/demographic?key=betakey&link=[direct link to image]<br>
 /visionAI/celebrity?key=betakey&link=[direct link to image]<br>
+/weatherAPI/city?key=betakey&city=[city to search]<br>
+/weatherAPI/coord?key=betakey&lat=[latitude]&lng=[longitude]
 <br>
 example:<br>
 <a href="http://rahandiapi.herokuapp.com/instapost/rahandipasha/1?key=betakey">instapost</a><br>
@@ -27,3 +29,5 @@ example:<br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/food?key=betakey&link=https://i.ytimg.com/vi/mEBFswpYms4/maxresdefault.jpg">visionAI food</a><br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/demographic?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg">visionAI demographic</a><br>
 <a href="http://rahandiapi.herokuapp.com/visionAI/celebrity?key=betakey&link=http://epilepsyu.com/wp-content/uploads/2014/01/happy-people-1050x600.jpg">visionAI celebrity</a><br>
+<a href="http://rahandiapi.herokuapp.com/weatherAPI/city?key=betakey&city=surabaya">weatherAPI city</a><br>
+<a href="http://rahandiapi.herokuapp.com/weatherAPI/coord?key=betakey&lat=-7.246&lng=112.7378">weatherAPI coord</a><br>
