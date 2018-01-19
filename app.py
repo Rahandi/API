@@ -151,7 +151,7 @@ def instapost(username, post_ke):
                 if query['status'] == 'ok':
                     result['see'] = True
                     if post_ke > len(query['items']):
-                        user_feed = insta.getTotalUserFeed(userID, post_ke)
+                        user_feed = instaAPI.getTotalUserFeed(userID, post_ke)
                     else:
                         user_feed = query['items']
                     mediacount = len(user_feed)
