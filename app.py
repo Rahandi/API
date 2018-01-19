@@ -3,14 +3,17 @@ from flask import Flask, request, abort, redirect, jsonify
 from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 from data.clarifaiapi import ClarifaiAPI
+from data.openweathermap import owm
 
 app = Flask(__name__)
 
-instaAPI = InstagramAPI('jogedt', 'jogedjoged')
-marker = instaAPI.login()
-if marker == False:
-    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-    marker = instaAPI.login()
+# instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+# marker = instaAPI.login()
+# if marker == False:
+#     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+#     marker = instaAPI.login()
+
+weatherAPI = owm('6ad7dc6072c70ea84dd42fa1273091e3')
 
 imgurlogindata = [
         '19bd6586ad07952',
@@ -384,6 +387,36 @@ def visionAI(model):
         return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/weatherAPI/<mode>', methods=['GET'])
+def weather(mode):
+	result = {}
+	try:
+		keys = request.args.get('key')
+		if keys not in key:
+			result['error'] = 'need auth key'
+		else:
+			if mode == 'city':
+				query = request.args.get('city')
+				if query == None or query == '':
+					result['error'] = 'city must be specified'
+				else:
+					result['result'] = weatherAPI.currentWeatherCity(query)
+					result['error'] = None
+			elif mode == 'coord':
+				lat = request.args.get('lat')
+				lng = request.args.get('lng')
+				if lat == None or lng == None or lat == '' or lng == '':
+					result['error'] = 'lat and lng must be specified'
+				else:
+					result['result'] = weatherAPI.currentWeatherCoord(lat, lng)
+					result['error'] = None
+			else:
+				result['error'] = '%s mode not exist' % (mode)
+		return jsonify(result)
+	except Exception as e:
+		result['error'] = str(e)
         return jsonify(result)
 
 if __name__ == '__main__':
