@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from data.InstagramAPI import InstagramAPI
 from data.clarifaiapi import ClarifaiAPI
 from data.openweathermap import owm
+from data.ssweb import ScreenshotWeb
 
 app = Flask(__name__)
 
@@ -22,6 +23,12 @@ imgurlogindata = [
         '660b76c28420af23ce2e5e23b7a317c7a96a8907'
     ]
 clarifai = ClarifaiAPI('c469606b715140bcbca2660c886d5220', imgurlogindata)
+
+pdfcrowdlogindata = [
+        'rahandi',
+        '3ccf176260126b37e770268a8d4dbcc5'
+    ]
+screenshotAPI = ScreenshotWeb(pdfcrowdlogindata, imgurlogindata)
 
 key = ['randi123', 'betakey']
 
@@ -414,6 +421,24 @@ def weather(mode):
                     result['error'] = None
             else:
                 result['error'] = '%s mode not exist' % (mode)
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+@app.route('/sswebAPI', methods=['GET'])
+def ssweb():
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('link')
+            if query == None or query == '':
+                result['error'] = 'link must be specified'
+            else:
+                result['result'] = screenshotAPI.screenshotWeb(query)
         return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
