@@ -8,3 +8,4 @@ requests_toolbelt
 clarifai
 imgurpython
 Pillow
+pdfcrowd
