@@ -439,6 +439,7 @@ def ssweb():
                 result['error'] = 'link must be specified'
             else:
                 result['result'] = screenshotAPI.screenshotWeb(query)
+                result['error'] = None
         return jsonify(result)
     except Exception as e:
         result['error'] = str(e)
