@@ -5,6 +5,7 @@ from data.InstagramAPI import InstagramAPI
 from data.clarifaiapi import ClarifaiAPI
 from data.openweathermap import owm
 from data.ssweb import ScreenshotWeb
+from data.joox import jooxAPI
 
 app = Flask(__name__)
 
@@ -29,6 +30,8 @@ pdfcrowdlogindata = [
         '3ccf176260126b37e770268a8d4dbcc5'
     ]
 screenshotAPI = ScreenshotWeb(pdfcrowdlogindata, imgurlogindata)
+
+joodAPP = jooxAPI()
 
 key = ['randi123', 'betakey']
 
@@ -439,6 +442,26 @@ def ssweb():
                 result['error'] = 'link must be specified'
             else:
                 result['result'] = screenshotAPI.screenshotWeb(query)
+                result['error'] = None
+        return jsonify(result)
+    except Exception as e:
+        result['error'] = str(e)
+        return jsonify(result)
+
+
+@app.route('/jooxAPI', methods(['GET']))
+def joox():
+    result = {}
+    try:
+        keys = request.args.get('key')
+        if keys not in key:
+            result['error'] = 'need auth key'
+        else:
+            query = request.args.get('query')
+            if query == None or query == '':
+                result['error'] = 'query must be specified'
+            else:
+                result['result'] = joodAPP.get_data(jooxAPP.search(query)[0])
                 result['error'] = None
         return jsonify(result)
     except Exception as e:
