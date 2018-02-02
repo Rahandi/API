@@ -5,7 +5,7 @@ from data.InstagramAPI import InstagramAPI
 from data.clarifaiapi import ClarifaiAPI
 from data.openweathermap import owm
 from data.ssweb import ScreenshotWeb
-from data.joox import jooxAPI
+# from data.joox import jooxAPI
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ pdfcrowdlogindata = [
     ]
 screenshotAPI = ScreenshotWeb(pdfcrowdlogindata, imgurlogindata)
 
-joodAPP = jooxAPI()
+# joodAPP = jooxAPI()
 
 key = ['randi123', 'betakey']
 
@@ -449,24 +449,24 @@ def ssweb():
         return jsonify(result)
 
 
-@app.route('/jooxAPI', methods(['GET']))
-def joox():
-    result = {}
-    try:
-        keys = request.args.get('key')
-        if keys not in key:
-            result['error'] = 'need auth key'
-        else:
-            query = request.args.get('query')
-            if query == None or query == '':
-                result['error'] = 'query must be specified'
-            else:
-                result['result'] = joodAPP.get_data(jooxAPP.search(query)[0])
-                result['error'] = None
-        return jsonify(result)
-    except Exception as e:
-        result['error'] = str(e)
-        return jsonify(result)
+# @app.route('/jooxAPI', methods(['GET']))
+# def joox():
+#     result = {}
+#     try:
+#         keys = request.args.get('key')
+#         if keys not in key:
+#             result['error'] = 'need auth key'
+#         else:
+#             query = request.args.get('query')
+#             if query == None or query == '':
+#                 result['error'] = 'query must be specified'
+#             else:
+#                 result['result'] = joodAPP.get_data(jooxAPP.search(query)[0])
+#                 result['error'] = None
+#         return jsonify(result)
+#     except Exception as e:
+#         result['error'] = str(e)
+#         return jsonify(result)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
