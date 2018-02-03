@@ -9,4 +9,3 @@ clarifai
 imgurpython
 Pillow
 pdfcrowd
-PyQt5
