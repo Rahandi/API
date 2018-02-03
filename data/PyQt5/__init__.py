@@ -17,6 +17,9 @@
 
 
 import os as _os
+from .QtWidgets import *
+from .QtCore import *
+from .QtWebEngineWidgets import *
 
 _path = _os.path.dirname(__file__) + '\\Qt\\bin;' + _os.environ['PATH']
 _os.environ['PATH'] = _path
