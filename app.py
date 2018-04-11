@@ -8,11 +8,8 @@ from data.ssweb import ScreenshotWeb
 
 app = Flask(__name__)
 
-instaAPI = InstagramAPI('jogedt', 'jogedjoged')
+instaAPI = InstagramAPI('bolinebot', 'bot321tob')
 marker = instaAPI.login()
-if marker == False:
-    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-    marker = instaAPI.login()
 
 weatherAPI = owm('6ad7dc6072c70ea84dd42fa1273091e3')
 
