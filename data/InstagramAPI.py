@@ -85,6 +85,7 @@ class InstagramAPI:
 
                 if (self.SendRequest('accounts/login/', self.generateSignature(json.dumps(data)), True)):
                     self.isLoggedIn = True
+                    print(self.LastJson)
                     self.username_id = self.LastJson["logged_in_user"]["pk"]
                     self.rank_token = "%s_%s" % (self.username_id, self.uuid)
                     self.token = self.LastResponse.cookies["csrftoken"]
