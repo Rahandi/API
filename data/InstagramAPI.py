@@ -72,7 +72,7 @@ class InstagramAPI:
         if (not self.isLoggedIn or force):
             self.s = requests.Session()
             # if you need proxy make something like this:
-            # self.s.proxies = {"https" : "http://proxyip:proxyport"}
+            self.s.proxies = {"https" : "http://ITS-557603-f316c:579f6@proxy.its.ac.id:8080"}
             if (self.SendRequest('si/fetch_headers/?challenge_type=signup&guid=' + self.generateUUID(False), None, True)):
 
                 data = {'phone_id'   : self.generateUUID(True),
