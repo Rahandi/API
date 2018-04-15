@@ -7,9 +7,11 @@ from data.openweathermap import owm
 from data.ssweb import ScreenshotWeb
 
 app = Flask(__name__)
-
-instaAPI = InstagramAPI('bolinebot', 'bot321tob')
-marker = instaAPI.login()
+try:
+    instaAPI = InstagramAPI('bolinebot', 'bot321tob')
+    marker = instaAPI.login()
+except:
+    marker = True
 
 weatherAPI = owm('6ad7dc6072c70ea84dd42fa1273091e3')
 
