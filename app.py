@@ -11,6 +11,7 @@ try:
     instaAPI = InstagramAPI('bolinebot', 'bot321tob')
     marker = instaAPI.login()
 except:
+    print('instagram gagal')
     marker = True
 
 weatherAPI = owm('6ad7dc6072c70ea84dd42fa1273091e3')
