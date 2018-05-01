@@ -146,68 +146,75 @@ def instastory(username):
 
 @app.route('/instapost/<username>/<post_ke>', methods=['GET'])
 def instapost(username, post_ke):
-    result = {}
     try:
-        keys = request.args.get('key')
-        post_ke = int(post_ke)
-        if keys not in key:
-            result['error'] = 'need auth key'
-        else:
-            query = instaAPI.searchUsername(username)
-            if query['status'] == 'ok':
-                result['find'] = True
-                userID = query['user']['pk']
-                query = instaAPI.getUserFeed(userID)
-                if query['status'] == 'ok':
-                    result['see'] = True
-                    if post_ke > len(query['items']):
-                        user_feed = instaAPI.getTotalUserFeed(userID, post_ke)
-                    else:
-                        user_feed = query['items']
-                    mediacount = len(user_feed)
-                    if post_ke <= mediacount:
-                        result['banyak'] = True
-                        post_ke = post_ke - 1
-                        mediatype = user_feed[post_ke]['media_type']
-                        result['media'] = {}
-                        result['media']['mediatype'] = mediatype
-                        result['media']['like_count'] = user_feed[post_ke]['like_count']
-                        if 'comments_disabled' not in user_feed[post_ke]:
-                            result['media']['comment_count'] = user_feed[post_ke]['comment_count']
-                        else:
-                            result['media']['comment_count'] = 'Disabled'
-                        try:
-                            result['media']['caption'] = user_feed[post_ke]['caption']['text']
-                        except Exception as e:
-                            result['media']['caption'] = ''
-                        if mediatype == 1:
-                            result['media']['url'] = user_feed[post_ke]['image_versions2']['candidates'][0]['url']
-                        elif mediatype == 2:
-                            result['media']['url'] = user_feed[post_ke]['video_versions'][1]['url']
-                            result['media']['preview'] = user_feed[post_ke]['image_versions2']['candidates'][0]['url']
-                        elif mediatype == 8:
-                            result['media']['url'] = []
-                            for a in user_feed[post_ke]['carousel_media']:
-                                med = a['media_type']
-                                items = {}
-                                items['mediatype'] = med
-                                if med == 1:
-                                    items['url'] = a['image_versions2']['candidates'][0]['url']
-                                elif med == 2:
-                                    items['url'] = a['video_versions'][1]['url']
-                                    items['preview'] =a['image_versions2']['candidates'][0]['url']
-                                result['media']['url'].append(items)
-                    else:
-                        result['banyak'] = False
-                else:
-                    result['see'] = False
-                    instaAPI.follow(userID)
-            else:
-                result['find'] = False
-        return jsonify(result)
+        link = 'http://139.195.141.92:5000/instapost/%s/%s?key=randi123' % (username, post_ke)
+        data = json.loads(requests.get(link).text)
+        return jsonify(data)
     except Exception as e:
         result['error'] = str(e)
         return jsonify(result)
+    # result = {}
+    # try:
+    #     keys = request.args.get('key')
+    #     post_ke = int(post_ke)
+    #     if keys not in key:
+    #         result['error'] = 'need auth key'
+    #     else:
+    #         query = instaAPI.searchUsername(username)
+    #         if query['status'] == 'ok':
+    #             result['find'] = True
+    #             userID = query['user']['pk']
+    #             query = instaAPI.getUserFeed(userID)
+    #             if query['status'] == 'ok':
+    #                 result['see'] = True
+    #                 if post_ke > len(query['items']):
+    #                     user_feed = instaAPI.getTotalUserFeed(userID, post_ke)
+    #                 else:
+    #                     user_feed = query['items']
+    #                 mediacount = len(user_feed)
+    #                 if post_ke <= mediacount:
+    #                     result['banyak'] = True
+    #                     post_ke = post_ke - 1
+    #                     mediatype = user_feed[post_ke]['media_type']
+    #                     result['media'] = {}
+    #                     result['media']['mediatype'] = mediatype
+    #                     result['media']['like_count'] = user_feed[post_ke]['like_count']
+    #                     if 'comments_disabled' not in user_feed[post_ke]:
+    #                         result['media']['comment_count'] = user_feed[post_ke]['comment_count']
+    #                     else:
+    #                         result['media']['comment_count'] = 'Disabled'
+    #                     try:
+    #                         result['media']['caption'] = user_feed[post_ke]['caption']['text']
+    #                     except Exception as e:
+    #                         result['media']['caption'] = ''
+    #                     if mediatype == 1:
+    #                         result['media']['url'] = user_feed[post_ke]['image_versions2']['candidates'][0]['url']
+    #                     elif mediatype == 2:
+    #                         result['media']['url'] = user_feed[post_ke]['video_versions'][1]['url']
+    #                         result['media']['preview'] = user_feed[post_ke]['image_versions2']['candidates'][0]['url']
+    #                     elif mediatype == 8:
+    #                         result['media']['url'] = []
+    #                         for a in user_feed[post_ke]['carousel_media']:
+    #                             med = a['media_type']
+    #                             items = {}
+    #                             items['mediatype'] = med
+    #                             if med == 1:
+    #                                 items['url'] = a['image_versions2']['candidates'][0]['url']
+    #                             elif med == 2:
+    #                                 items['url'] = a['video_versions'][1]['url']
+    #                                 items['preview'] =a['image_versions2']['candidates'][0]['url']
+    #                             result['media']['url'].append(items)
+    #                 else:
+    #                     result['banyak'] = False
+    #             else:
+    #                 result['see'] = False
+    #                 instaAPI.follow(userID)
+    #         else:
+    #             result['find'] = False
+    #     return jsonify(result)
+    # except Exception as e:
+    #     result['error'] = str(e)
+    #     return jsonify(result)
 
 @app.route('/imageapi', methods=['GET'])
 def imageapi():
