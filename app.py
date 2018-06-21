@@ -147,7 +147,7 @@ def instastory(username):
 @app.route('/instapost/<username>/<post_ke>', methods=['GET'])
 def instapost(username, post_ke):
     try:
-        link = 'http://180.247.227.121:5000/instapost/%s/%s?key=randi123' % (username, post_ke)
+        link = 'http://139.195.141.92:5000/instapost/%s/%s?key=randi123' % (username, post_ke)
         data = json.loads(requests.get(link).text)
         return jsonify(data)
     except Exception as e:
